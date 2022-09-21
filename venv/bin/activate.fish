@@ -30,7 +30,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/home/glen/Desktop/Python/Django/aweeweeto/venv"
+set -gx VIRTUAL_ENV "/home/glen/Desktop/Python/Django/Ala-Too/venv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH
