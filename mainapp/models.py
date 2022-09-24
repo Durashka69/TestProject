@@ -1,3 +1,4 @@
+from hashlib import blake2b
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
@@ -45,7 +46,8 @@ class FoundItem(models.Model):
     )
     picture = models.ImageField(
         upload_to='images/found_items',
-        verbose_name='Изображение найденного предмета'
+        verbose_name='Изображение найденного предмета',
+        null=True, blank=True
     )
     category = models.ForeignKey(
         Category, 
@@ -60,11 +62,13 @@ class FoundItem(models.Model):
         max_length=255, verbose_name='Место потери'
     )
     description = models.TextField(
-        verbose_name='Описание'
+        verbose_name='Описание',
+        null=True, blank=True
     )
     pickup_location = models.CharField(
         max_length=255, 
-        verbose_name='Локация для передачи'
+        verbose_name='Локация для передачи',
+        null=True, blank=True
     )
     
     def __str__(self):
@@ -87,7 +91,8 @@ class LostItem(models.Model):
     )
     picture = models.ImageField(
         upload_to='images/lost_items',
-        verbose_name='Изображение потерянного предмета'
+        verbose_name='Изображение потерянного предмета',
+        null=True, blank=True
     )
     location1 = models.URLField(
         max_length=255, 
@@ -95,11 +100,13 @@ class LostItem(models.Model):
     )
     location2 = models.URLField(
         max_length=255, 
-        verbose_name='Вторая локация'
+        verbose_name='Вторая локация',
+        null=True, blank=True
     )
     location3 = models.URLField(
         max_length=255, 
-        verbose_name='Третья локация'
+        verbose_name='Третья локация',
+        null=True, blank=True
     )
     
     def __str__(self):
