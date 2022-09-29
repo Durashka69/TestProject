@@ -1,4 +1,3 @@
-from hashlib import blake2b
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
@@ -40,7 +39,7 @@ class Category(models.Model):
 #         return self.title
 
 
-class FoundItem(models.Model):
+class Item(models.Model):
     title = models.CharField(
         max_length=255, verbose_name='Название вещи'
     )
@@ -52,7 +51,8 @@ class FoundItem(models.Model):
     category = models.ForeignKey(
         Category, 
         on_delete=models.CASCADE,
-        verbose_name='Категория'
+        verbose_name='Категория',
+        related_name='items'
     )
     date = models.DateField(
         auto_now_add=True,
@@ -70,6 +70,10 @@ class FoundItem(models.Model):
         verbose_name='Локация для передачи',
         null=True, blank=True
     )
+    is_lost = models.BooleanField(
+        default = False,
+        verbose_name = 'Является ли вещь потерянной'
+    )
     
     def __str__(self):
         return self.title
@@ -79,39 +83,39 @@ class FoundItem(models.Model):
         verbose_name_plural = 'Найденные вещи'
 
 
-class LostItem(models.Model):
-    title = models.CharField(
-        max_length=255, verbose_name='Название предмета'
-    )
-    category = models.ForeignKey(
-        Category, 
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True
-    )
-    picture = models.ImageField(
-        upload_to='images/lost_items',
-        verbose_name='Изображение потерянного предмета',
-        null=True, blank=True
-    )
-    location1 = models.URLField(
-        max_length=255, 
-        verbose_name='Первая локация'
-    )
-    location2 = models.URLField(
-        max_length=255, 
-        verbose_name='Вторая локация',
-        null=True, blank=True
-    )
-    location3 = models.URLField(
-        max_length=255, 
-        verbose_name='Третья локация',
-        null=True, blank=True
-    )
+# class LostItem(models.Model):
+#     title = models.CharField(
+#         max_length=255, verbose_name='Название предмета'
+#     )
+#     category = models.ForeignKey(
+#         Category, 
+#         on_delete=models.SET_NULL,
+#         null=True,
+#         blank=True
+#     )
+#     picture = models.ImageField(
+#         upload_to='images/lost_items',
+#         verbose_name='Изображение потерянного предмета',
+#         null=True, blank=True
+#     )
+#     location1 = models.URLField(
+#         max_length=255, 
+#         verbose_name='Первая локация'
+#     )
+#     location2 = models.URLField(
+#         max_length=255, 
+#         verbose_name='Вторая локация',
+#         null=True, blank=True
+#     )
+#     location3 = models.URLField(
+#         max_length=255, 
+#         verbose_name='Третья локация',
+#         null=True, blank=True
+#     )
     
-    def __str__(self):
-        return self.title
+#     def __str__(self):
+#         return self.title
     
-    class Meta:
-        verbose_name = 'Потерянная вещь'
-        verbose_name_plural = 'Потерянные вещи'
+#     class Meta:
+#         verbose_name = 'Потерянная вещь'
+#         verbose_name_plural = 'Потерянные вещи'

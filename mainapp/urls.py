@@ -1,14 +1,14 @@
 from rest_framework.routers import DefaultRouter
 
 from mainapp.views import (
-    CategoryViewSet, FoundItemViewSet, LostItemViewSet
+    CategoryViewSet, ItemViewSet
 )
 
 router = DefaultRouter()
 
 router.register('categories', CategoryViewSet)
-router.register('found-items', FoundItemViewSet)
-router.register('lost-items', LostItemViewSet)
+router.register('items', ItemViewSet)
+# router.register('lost-items', LostItemViewSet)
 
 urlpatterns = []
 

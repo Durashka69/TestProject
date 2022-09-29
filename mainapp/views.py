@@ -1,13 +1,13 @@
 from rest_framework import viewsets
 
 from mainapp.models import (
-    Category, FoundItem, LostItem
+    Category, Item
 )
 from mainapp.serializers import (
-    CategorySerializer, FoundItemSerializer, LostItemSerializer
+    CategorySerializer, ItemSerializer
 )
 from mainapp.filters import (
-    CategoryFilter, FoundItemFilter, LostItemFilter
+    CategoryFilter, FoundItemFilter
 )
 
 from django_filters.rest_framework import DjangoFilterBackend
@@ -20,15 +20,15 @@ class CategoryViewSet(viewsets.ModelViewSet):
     filterset_class = CategoryFilter
 
 
-class FoundItemViewSet(viewsets.ModelViewSet):
-    queryset = FoundItem.objects.all()
-    serializer_class = FoundItemSerializer
+class ItemViewSet(viewsets.ModelViewSet):
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = FoundItemFilter
 
 
-class LostItemViewSet(viewsets.ModelViewSet):
-    queryset = LostItem.objects.all()
-    serializer_class = LostItemSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_class = LostItemFilter
+# class LostItemViewSet(viewsets.ModelViewSet):
+#     queryset = LostItem.objects.all()
+#     serializer_class = LostItemSerializer
+#     filter_backends = [DjangoFilterBackend]
+#     filterset_class = LostItemFilter

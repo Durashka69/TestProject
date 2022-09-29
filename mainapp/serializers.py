@@ -1,33 +1,56 @@
 from rest_framework import serializers
 
-from mainapp.models import FoundItem, LostItem, Category
+from mainapp.models import Item, Category
+
+
+class ItemSerializer(serializers.ModelSerializer):
+    category_title = serializers.ReadOnlyField(
+        source='category.title'
+    )
+
+    class Meta:
+        model = Item
+        fields = (
+            'id',
+            'title',
+            'category',
+            'category_title',
+            'date',
+            'picture',
+            'geotag',
+            'description',
+            'pickup_location',
+            'is_lost'
+        )
+
+        extra_kwargs = {
+            'category': {'write_only': True}
+        }
 
 
 class CategorySerializer(serializers.ModelSerializer):
+    items = ItemSerializer(
+        read_only=True, 
+        many=True
+    )
+
     class Meta:
         model = Category
-        fields = ('id', 'title')
-
-
-class FoundItemSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = FoundItem
         fields = (
-            'title', 'category', 'date',
-            'picture',
-            'geotag', 'description',
-            'pickup_location'
-        )
-        
-
-class LostItemSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = LostItem
-        fields = (
+            'id', 
             'title',
-            'picture',
-            'location1',
-            'location2',
-            'location3',
-            'category'
+            'items'
         )
+
+
+# class LostItemSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = LostItem
+#         fields = (
+#             'title',
+#             'picture',
+#             'location1',
+#             'location2',
+#             'location3',
+#             'category'
+#         )

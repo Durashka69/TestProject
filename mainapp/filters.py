@@ -1,6 +1,6 @@
 from django_filters import rest_framework as filters
 
-from mainapp.models import FoundItem, LostItem, Category
+from mainapp.models import Item, Category
 
 
 class CategoryFilter(filters.FilterSet):
@@ -11,11 +11,5 @@ class CategoryFilter(filters.FilterSet):
 
 class FoundItemFilter(filters.FilterSet):
     class Meta:
-        model = FoundItem
-        fields = ('title','category',)
-
-
-class LostItemFilter(filters.FilterSet):
-    class Meta:
-        model = LostItem
+        model = Item
         fields = ('title','category',)
